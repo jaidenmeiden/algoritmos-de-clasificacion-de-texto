@@ -11,6 +11,23 @@ Original file is located at
 ## Pipeline básico para Ingles
 
 ## @title Dependencias previas
+
+**nltk.download('punkt')** es un `tokenizer`
+
+This tokenizer divides a text into a list of sentences by using an unsupervised algorithm to build a model for abbreviation words, collocations, and words that start sentences.  It must be trained on a large collection of plaintext in the target language before it can be used. [Punkt](https://www.nltk.org/_modules/nltk/tokenize/punkt.html)
+
+**nltk.download('averaged_perceptron_tagger')** es un `tagger`
+
+The perceptron part-of-speech tagger implements part-of-speech tagging using the averaged, structured perceptron algorithm. Some information about the implementation is available in this presentation. The implementation is based on the references in the final slide. [Averaged Perceptron Tagger](https://www.nltk.org/_modules/nltk/tag/perceptron.html)
+
+Este algoritmo del perceptrón demostro que tiene una eficiencia superior a los etiquetadores por `modelos de máxima entropía` utilizados previamente, que estaban definidos por regresiones logísticas.
+
+## Esalera de modelos
+
+* **Módelos markovianos latentes (HMM):** Son cadenas de Marcov, que es un conjunto finito de estados, donde se peuden definir estados discretos. Las cadenas de Marcov definen todas las posibles transiciones a traves de probabilidades de transición entre los posibles estados que un sistema puede tener, de lo cual se puede sacar una matriz de transición, tambien hay un vector de estados iniciales, el cual se multiplica con la matriz de transición y el resultado es el siguiente vector de estados iniciales.
+
+* **Módelos marcovianos de máxima entropía**
+* **Deep Learning**
 """
 
 import nltk
