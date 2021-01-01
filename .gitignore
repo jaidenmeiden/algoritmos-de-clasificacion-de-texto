@@ -101,3 +101,9 @@ fabric.properties
 .~lock.**
 
 # End of https://www.gitignore.io/api/pycharm
+
+# Files included by the application
+/UD_Spanish-AnCora
+# Guardamos los entrenamientos con numpy
+emissionHMM.npy
+transitionHMM.npy
