@@ -1,13 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[33]:
-
-
-import numpy as np
-
-
-# In[34]:
+# In[ ]:
 
 
 # instalacion de dependencias previas
@@ -19,7 +13,7 @@ get_ipython().system('git clone https://github.com/UniversalDependencies/UD_Span
 
 # Cargamos las probabilidades del modelo HMM
 
-# In[35]:
+# In[ ]:
 
 
 transitionProbdict = np.load('transitionHMM.npy', allow_pickle='TRUE').item()
@@ -30,7 +24,7 @@ emissionProbdict = np.load('emissionHMM.npy', allow_pickle='TRUE').item()
 # 
 # Obtenemos las llaves de la colección de probabilidades de emisión con `emissionProbdict.keys()` y creamos un bucle recorriendo la lista de llaves `[k for k in emissionProbdict.keys()` y de cada llave obtenida captuarmos unicamente la categoría gramatical `k.split('|')[1]` en la segunda posición de la llave. Para que no nos muestre categorías repetidas aplicamos la función `set()`, donde nos debe mostrar **17 registros** según la convención internacional.
 
-# In[36]:
+# In[ ]:
 
 
 stateSet = set([k.split('|')[1] for k in emissionProbdict.keys()])
@@ -39,7 +33,7 @@ stateSet
 
 # Enumeramos las categorias con números para asignar a las columnas (Asignamos un número entero) de la matriz de Viterbi.
 
-# In[37]:
+# In[ ]:
 
 
 tagStateDict = {}
@@ -52,17 +46,17 @@ tagStateDict
 # 
 # Calculamos distribución inicial de estados
 
-# In[38]:
+# In[ ]:
 
 
+import numpy as np
 from conllu import parse_incr 
-wordList = []
 data_file = open("UD_Spanish-AnCora/es_ancora-ud-dev.conllu", "r", encoding="utf-8")
 
 
 # En `initTagStateProb` (Guarda los `\rho_i^{(0)}`, que son los **rhos** del estado **i** en el momento **0**) es donde guardamos la probabilidad de que encuentre una categoría gramatical al principio de una frase en el corpus.
 
-# In[39]:
+# In[ ]:
 
 
 initTagStateProb = {} # \rho_i^{(0)}
@@ -85,7 +79,7 @@ initTagStateProb
 # 
 # En la forma **NO** elegante, sumamos los valores de la colección creando un blucle con el que recorremos la colleción por sus llaves creando una lista con todas las probabilidades, la cual convertimos a un arreglo de `numpy` para aplicar la función `sum()`
 
-# In[40]:
+# In[ ]:
 
 
 np.array([initTagStateProb[k] for k in initTagStateProb.keys()]).sum()
@@ -93,7 +87,7 @@ np.array([initTagStateProb[k] for k in initTagStateProb.keys()]).sum()
 
 # En una forma más simple y eficiente, sumamos los valores de la colección accediendo directemante a la lista de valores de la colección con `list(initTagStateProb.values())`.
 
-# In[41]:
+# In[ ]:
 
 
 np.array(list(initTagStateProb.values())).sum()
@@ -101,7 +95,7 @@ np.array(list(initTagStateProb.values())).sum()
 
 # En la forma muy eficiente, simplemente sumamos la lista de valores, sin utilizar `numpy`.
 
-# In[42]:
+# In[ ]:
 
 
 sum(initTagStateProb.values())
@@ -158,7 +152,7 @@ sum(initTagStateProb.values())
 # 
 # ### Debemos importar la librería NLTK, ya que debemos tokenizar
 
-# In[43]:
+# In[ ]:
 
 
 import nltk
@@ -168,7 +162,7 @@ from nltk import word_tokenize # importamos el tokenizador de palabras
 
 # Construimos la función `ViterbiMatrix` a la cual le pasamos la secuencia de palabras (Este `string` lo tenemos que tokenizar), la matriz de transición `A`, las probabilidades de emisión `B`, el diccionario de categorias con números para asignar a las columnas `tagStateDict` y la probabilidad de que encuentre una categoría gramatical al principio de una frase en el corpus `initTagStateProb`.
 
-# In[44]:
+# In[ ]:
 
 
 # (secuencia, A, B, tagStateDict, initTagStateProb)
@@ -220,7 +214,7 @@ def ViterbiTags(secuencia,
 ViterbiTags('el mundo es pequeño')
 
 
-# In[45]:
+# In[ ]:
 
 
 ViterbiTags('estos instrumentos han de rasgar')
@@ -232,7 +226,7 @@ ViterbiTags('estos instrumentos han de rasgar')
 # 
 # Ejemplo con el Corpus Treebank en ingles
 
-# In[60]:
+# In[ ]:
 
 
 #Hacemos el ejemplo con un corpus en ingles, Dataset 'treebank'
@@ -248,7 +242,7 @@ train_data = treebank.tagged_sents()[:3900]
 # 
 # Estructura de la data de entrenamiento. Tener presente que la convención es diferente de la UPOS, ya que el Dataset es antiguo y por ende tiene otra convención. El algoritmo funciona con cualquier convención.
 
-# In[61]:
+# In[ ]:
 
 
 train_data
@@ -256,7 +250,7 @@ train_data
 
 # HMM pre-construido en NLTK
 
-# In[62]:
+# In[ ]:
 
 
 from nltk.tag import hmm
@@ -264,7 +258,7 @@ tagger = hmm.HiddenMarkovModelTrainer().train_supervised(train_data)
 tagger
 
 
-# In[63]:
+# In[ ]:
 
 
 tagger.tag("Pierre Vinken will get old".split())
@@ -272,7 +266,7 @@ tagger.tag("Pierre Vinken will get old".split())
 
 # Training accuracy
 
-# In[64]:
+# In[ ]:
 
 
 tagger.evaluate(treebank.tagged_sents()[:3900])
@@ -286,10 +280,21 @@ tagger.evaluate(treebank.tagged_sents()[:3900])
 # 
 # $$\left[ \left[ (\text{'El'}, \text{'DET'}), (\dots), \dots\right], \left[\dots \right] \right]$$
 
-# In[46]:
+# In[ ]:
 
 
-# desarrolla tu código aquí 
+data_file = open("UD_Spanish-AnCora/es_ancora-ud-dev.conllu", "r", encoding="utf-8")       
+
+
+# In[ ]:
+
+
+estructura = []
+for tokenlist in parse_incr(data_file):
+    lista = []
+    for token in tokenlist:
+        lista.append((token['form'].lower(), token['upos']))
+    estructura.append(lista)
 
 
 # 2. **Entrenamiento:** Una vez que el dataset esta con la estructura correcta, utiliza la clase `hmm.HiddenMarkovModelTrainer()` para entrenar con el $80 \%$ del dataset como conjunto de `entrenamiento` y $20 \%$ para el conjunto de `test`.
@@ -297,21 +302,39 @@ tagger.evaluate(treebank.tagged_sents()[:3900])
 # **Ayuda:** Para la separacion entre conjuntos de entrenamiento y test, puedes usar la funcion de Scikit Learn: 
 # 
 # https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
-# 
-# En este punto el curso de Machine Learning con Scikit Learn es un buen complemento para entender mejor las funcionalidades de Scikit Learn: https://platzi.com/cursos/scikitlearn-ml/ 
 
-# In[47]:
+# In[ ]:
 
 
-# desarrolla tu código aquí
+from sklearn.model_selection import train_test_split
+estructura_train, estructura_test = train_test_split(estructura, test_size=0.20, random_state=42)
+
+
+# In[ ]:
+
+
+tagger = hmm.HiddenMarkovModelTrainer().train_supervised(estructura_train)
+tagger
 
 
 # 3. **Validación del modelo:** Un vez entrenado el `tagger`, calcula el rendimiento del modelo (usando `tagger.evaluate()`) para los conjuntos de `entrenamiento` y `test`.
 # 
 # 
 
-# In[48]:
+# In[ ]:
 
 
-#desarrolla tu código aquí
+tagger.tag("El mundo es pequeño y estos instrumentos han de rasgar el universo".split())
+
+
+# In[50]:
+
+
+tagger.evaluate(estructura_test)
+
+
+# In[51]:
+
+
+tagger.evaluate(estructura_test)
 
