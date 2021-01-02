@@ -230,44 +230,52 @@ ViterbiTags('estos instrumentos han de rasgar')
 # 
 # * clase en python (NLTK) de HMM: https://www.nltk.org/_modules/nltk/tag/hmm.html
 # 
-# `@title` ejemplo con el Corpus Treebank en ingles
+# Ejemplo con el Corpus Treebank en ingles
 
-# In[ ]:
+# In[60]:
 
 
-
+#Hacemos el ejemplo con un corpus en ingles, Dataset 'treebank'
+import nltk
+nltk.download('treebank')
+from nltk.corpus import treebank
+#Como el Dataset ya esta equiquetado tomamos todas las frases
+#Esconjemos un parte del Dataset para el entrenamiento
+train_data = treebank.tagged_sents()[:3900]
 
 
 # # Carga del modelo HMM previamente entrenado
 # 
-# `@title` estructura de la data de entrenamiento
+# Estructura de la data de entrenamiento. Tener presente que la convención es diferente de la UPOS, ya que el Dataset es antiguo y por ende tiene otra convención. El algoritmo funciona con cualquier convención.
 
-# In[ ]:
-
-
+# In[61]:
 
 
-
-# `@title` HMM pre-construido en NLTK
-
-# In[ ]:
+train_data
 
 
+# HMM pre-construido en NLTK
+
+# In[62]:
 
 
-
-# In[ ]:
-
-
-
+from nltk.tag import hmm
+tagger = hmm.HiddenMarkovModelTrainer().train_supervised(train_data)
+tagger
 
 
-# `@title` training accuracy
-
-# In[ ]:
+# In[63]:
 
 
+tagger.tag("Pierre Vinken will get old".split())
 
+
+# Training accuracy
+
+# In[64]:
+
+
+tagger.evaluate(treebank.tagged_sents()[:3900])
 
 
 # ## Ejercicio de práctica
