@@ -10,3 +10,5 @@ joblib==1.0.0
 threadpoolctl==2.1.0
 scikit-learn==0.24.0
 nbconvert==6.0.7
+backports.lzma==0.0.14
+stanza==1.1.1

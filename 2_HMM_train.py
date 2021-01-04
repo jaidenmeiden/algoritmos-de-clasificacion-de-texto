@@ -200,5 +200,5 @@ transitionProbDict['ADJ|ADJ']
 # In[ ]:
 
 
-
+get_ipython().system('jupyter nbconvert --to=python 2_HMM_train.ipynb')
 

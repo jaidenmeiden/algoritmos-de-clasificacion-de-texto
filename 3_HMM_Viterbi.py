@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 # instalacion de dependencias previas
@@ -13,7 +13,7 @@ get_ipython().system('git clone https://github.com/UniversalDependencies/UD_Span
 
 # Cargamos las probabilidades del modelo HMM
 
-# In[ ]:
+# In[2]:
 
 
 transitionProbdict = np.load('transitionHMM.npy', allow_pickle='TRUE').item()
@@ -327,14 +327,14 @@ tagger
 tagger.tag("El mundo es pequeño y estos instrumentos han de rasgar el universo".split())
 
 
-# In[50]:
+# In[ ]:
 
 
 tagger.evaluate(estructura_test)
 
 
-# In[51]:
+# In[ ]:
 
 
-tagger.evaluate(estructura_test)
+get_ipython().system('jupyter nbconvert --to=python 3_HMM_Viterbi.ipynb')
 
