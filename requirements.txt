@@ -9,3 +9,4 @@ scipy==1.6.0
 joblib==1.0.0
 threadpoolctl==2.1.0
 scikit-learn==0.24.0
+nbconvert==6.0.7
